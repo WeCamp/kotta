@@ -1,0 +1,33 @@
+---
+- name: Provision Kotta
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+    - install_apt_packages
+    - f500.bashrc
+    - f500.debian
+    - f500.nginx
+    - f500.mariadb55
+    - f500.php_cli
+    - f500.php_fpm
+    - f500.php_extensions
+    - f500.php_composer
+
+  tasks:
+    - name: copy nginx configuration
+      template: src=templates/nginx.cfg.j2 dest=/etc/nginx/sites-available/kotta force=yes
+      notify: restart nginx
+
+    - name: enable nginx configuration
+      file:  src=/etc/nginx/sites-available/kotta dest=/etc/nginx/sites-enabled/kotta state=link
+      notify: restart nginx
+
+    - name: create database
+      mysql_db: "name={{ kotta_db_name }} state=present"
+
+    - name: create database user
+      mysql_user: name={{ kotta_db_user }} password={{ kotta_db_password }} priv={{ kotta_db_name }}.*:ALL state=present
+
+

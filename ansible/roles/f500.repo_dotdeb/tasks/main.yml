@@ -1,0 +1,10 @@
+---
+
+- name: add dotdeb key
+  apt_key: id=89DF5277 url=http://www.dotdeb.org/dotdeb.gpg state=present
+
+- name: add dotdeb repository
+  apt_repository: repo='deb http://mirror.nl.leaseweb.net/dotdeb/ wheezy all' state=present update_cache=no
+
+- name: add dotdeb source repository
+  apt_repository: repo='deb-src http://mirror.nl.leaseweb.net/dotdeb/ wheezy all' state=present update_cache=yes

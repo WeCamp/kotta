@@ -1,0 +1,7 @@
+---
+
+- name: install php5-cli
+  apt: pkg=php5-cli state=present
+
+- name: write cli php.ini
+  template: src=php.ini.j2 dest=/etc/php5/cli/php.ini owner=root group=root mode=0644

@@ -1,0 +1,20 @@
+---
+bash_users:
+    - vagrant
+
+nginx_group: vagrant
+nginx_user: vagrant
+php_fpm_user: vagrant
+php_fpm_group: vagrant
+php_opcache_validate_timestamps: On
+mariadb_bind_address: 0.0.0.0
+
+kotta_server_name: "kotta.loc"
+kotta_fastcgi_index: "index.php"
+kotta_application_env: "dev"
+kotta_root: "/vagrant"
+kotta_web_root: "/vagrant/public"
+kotta_access_log: "/var/log/nginx/kotta.access"
+kotta_error_log: "/var/log/nginx/kotta.error"
+
+kotta_db_password: "secret"
