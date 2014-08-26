@@ -12,6 +12,7 @@ php_extensions:
     - php5-intl
     - php5-gd
     - php5-mysql
+    - php5-mcrypt
 
 mariadb_socket: "/var/run/mysqld/mysqld.sock"
 
