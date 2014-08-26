@@ -1,7 +1,6 @@
 kotta
 =====
 
-
 Requirements:
 ----
 
@@ -21,3 +20,9 @@ Add the following lines to your `/etc/hosts` file:
 
     # Wecamp
     192.168.138.10 kotta.loc
+
+
+Setup Project
+=============
+
+Create the environment file by copying `app/config/environment.dist.php` to `app/config/environment.php
