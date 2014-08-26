@@ -1,12 +1,11 @@
 kotta
 =====
 
-
 Requirements:
 ----
 
-[Virtualbox](https://www.virtualbox.org/)
-[Vagrant](https://www.vagrantup.com/)
+[Virtualbox](https://www.virtualbox.org/) <br/>
+[Vagrant](https://www.vagrantup.com/) <br/>
 [Ansible](http://www.ansible.com/home)
 
 
@@ -21,3 +20,9 @@ Add the following lines to your `/etc/hosts` file:
 
     # Wecamp
     192.168.138.10 kotta.loc
+
+
+Setup Project
+=============
+
+Create the environment file by copying `app/config/environment.dist.php` to `app/config/environment.php`
