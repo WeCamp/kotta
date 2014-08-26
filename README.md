@@ -4,8 +4,8 @@ kotta
 Requirements:
 ----
 
-[Virtualbox](https://www.virtualbox.org/)
-[Vagrant](https://www.vagrantup.com/)
+[Virtualbox](https://www.virtualbox.org/) <br/>
+[Vagrant](https://www.vagrantup.com/) <br/>
 [Ansible](http://www.ansible.com/home)
 
 
