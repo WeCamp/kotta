@@ -14,3 +14,6 @@
 Route::get('/', array(
         'uses' => 'IndexController@getIndex'
     ));
+Route::post('/', array(
+        'uses' => 'IndexController@postMidiFile'
+    ));
