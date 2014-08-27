@@ -28,3 +28,8 @@ Setup Project
 Create the environment file by copying `app/config/environment.dist.php` to `app/config/environment.php`
 
 Run composer and boom.
+
+Libraries
+=========
+
+We use [tmont/midiparser](https://github.com/tmont/midiparser) to parse uploaded midi files
