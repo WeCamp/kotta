@@ -2,9 +2,9 @@
 
 namespace Kotta\ValueObjects\Bags;
 
-use Kotta\Bags\Track;
+use Kotta\ValueObjects\Track;
 
-class TrackBag implements Iterator
+class TrackBag implements \Iterator
 {
     private $position = 0;
     private $array = array();  
@@ -18,7 +18,7 @@ class TrackBag implements Iterator
             }
             else
             {
-                throw new \Exception("Tracks must be an instance of Kotta\Bags\Track, " . get_class($track) . " provided");
+                throw new \Exception("Tracks must be an instance of Kotta\ValueObjects\Track, " . get_class($track) . " provided");
             }
         }
         $this->position = 0;
@@ -44,9 +44,9 @@ class TrackBag implements Iterator
         return isset($this->array[$this->position]);
     }
 
-    public function addTrack(Track $track)
+    public function add(Track $track)
     {
-        if (!in_array($track, $this->array)
+        if (!in_array($track, $this->array))
         {
             $this->array[] = $track;
         }

@@ -4,6 +4,7 @@ namespace Kotta\Parser;
 
 use Kotta\ValueObjects\MidiFile;
 use Kotta\ValueObjects\Track;
+use Kotta\ValueObjects\Bags\TrackBag;
 use Tmont\Midi\Delta;
 use Tmont\Midi\Event\EndOfTrackEvent;
 use Tmont\Midi\Parsing\FileParser as MidiParser;
@@ -18,7 +19,7 @@ class Parser extends MidiParser {
     public function parseToMidiClass()
     {
         $midiFile = new MidiFile();
-
+        $trackBag = new TrackBag();
         $track = null;
         do {
             $result = $this->parse();
@@ -36,15 +37,15 @@ class Parser extends MidiParser {
                 $track->addTickCount($result->getData()[0]);
             }
 
-
             if ($result instanceof EndOfTrackEvent) {
                 if ($track->getTicks()) {
-//                    $trackBag->add($track);
+                    $trackBag->add($track);
                 } else {
                     // todo: If the track has a name, it should be a comment. Add the comments to the MidiFile
                 }
             }
         } while ($result);
+        $midiFile->setTracks($trackBag);
 
         return $midiFile;
     }
