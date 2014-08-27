@@ -18,7 +18,10 @@
             "app/database/seeds",
             "app/tests/TestCase.php",
             "app/service"
-        ]
+        ],
+        "psr-0": {
+            "Kotta": "lib/kotta/src/"
+        }
     },
     "scripts": {
         "post-install-cmd": [
