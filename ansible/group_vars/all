@@ -7,6 +7,8 @@ php_log_dir: "/var/log/php5"
 php_fpm_user: "www-data"
 php_fpm_group: "www-data"
 
+php_opcache_revalidate_freq: 0
+
 php_extensions:
     - php5-curl
     - php5-intl
