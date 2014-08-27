@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\MessageBag;
 
 use Tmont\Midi\Parsing\FileParser;
+use Tmont\Midi\Parsing\TrackParser;
 use Tmont\Midi\Reporting\TextFormatter;
 use Tmont\Midi\Reporting\Printer;
 use Tmont\Midi\Reporting\HtmlFormatter;
@@ -49,16 +50,33 @@ class IndexController extends Controller
         $file = $fileLocation . '/name.midi';
         $file = __DIR__ . '/../../vendor/tmont/midiparser/sample/And_We_Die_Young.mid';
 
-
         //create a new file parser
         $parser = new FileParser();
-
-        //replace this path with the path to an actual MIDI file
         $parser->load($file);
 
-        var_dump($parser);
+//        var_dump($parser->getTracksExpected(), $parser->getTracksParsed(), $parser->getState());
+        $result = $parser->parse();
+        var_dump($result);
 
-        //create a Printer object
+//        $test = $parser->parseFileHeader($result);
+//        var_dump($test);
+
+
+//        $parser = new TrackParser();
+//        $parser->load($file);
+//
+//        $result = $parser->parse();
+//        var_dump($result);
+
+//        var_dump($parser->getExpectedTrackLength(), $parser->getParsedTrackLength());
+
+//        $test = $parser->parseFileHeader();
+
+//        $parser->
+
+//        var_dump($parser);
+
+//        create a Printer object
 //        $printer = new Printer(new TextFormatter(), $parser);
 
         //output the parse result
