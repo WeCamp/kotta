@@ -2,6 +2,11 @@
 
 return array(
 
+    'uploader' => array(
+        'location' => __DIR__ . '/../../uploads',
+        'fileSize' => 70, // size in kilobytes
+    ),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
