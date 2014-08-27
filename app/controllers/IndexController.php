@@ -60,6 +60,8 @@ class IndexController extends Controller
 
             if ($result instanceof TrackNameEvent) {
                 echo 'TrackName: ' . $result->getData()[2] . '<br>';
+            } else {
+                var_dump($result);
             }
         } while ($result);
     }
