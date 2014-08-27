@@ -1,11 +1,6 @@
 {% extends "layout/base.twig" %}
 
 {% block content %}
-{{ trans('validation.required') }}
-    {% for error in errors.all %}
-        {{ dump(error) }}
-    {% endfor %}
-
     {{ Form.open({'files': true}) }}
 
     {{ Form.file('midi_file') }}

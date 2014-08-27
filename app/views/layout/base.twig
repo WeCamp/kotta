@@ -5,6 +5,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+	    {% for error in errors.all %}
+	    	{{ error | trans }}
+	    {% endfor %}
+		{% for successMsg in success.all %}
+	        {{ successMsg | trans }}
+	    {% endfor %}
+
         {% block content %}{% endblock %}
 
         {% block javascript %}{% endblock %}
