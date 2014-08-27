@@ -8,5 +8,8 @@ class MidiFile
 
     protected $channel;
 
-
+    public function addTrack(Track $track)
+    {
+        $this->tracks[] = $track;
+    }
 } 
