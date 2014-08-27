@@ -1,8 +1,10 @@
 # Created by http://www.gitignore.io
 
+### OSX ###
+.DS_Store
+
 ### Vagrant ###
 .vagrant/
-
 
 ### Laravel4 ###
 /bootstrap/compiled.php
