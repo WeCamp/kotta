@@ -3,6 +3,7 @@
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\MessageBag;
 
+use Tmont\Midi\Event\TrackNameEvent;
 use Tmont\Midi\Parsing\FileParser;
 use Tmont\Midi\Parsing\TrackParser;
 use Tmont\Midi\Reporting\TextFormatter;
@@ -54,33 +55,13 @@ class IndexController extends Controller
         $parser = new FileParser();
         $parser->load($file);
 
-//        var_dump($parser->getTracksExpected(), $parser->getTracksParsed(), $parser->getState());
-        $result = $parser->parse();
-        var_dump($result);
+        do {
+            $result = $parser->parse();
 
-//        $test = $parser->parseFileHeader($result);
-//        var_dump($test);
-
-
-//        $parser = new TrackParser();
-//        $parser->load($file);
-//
-//        $result = $parser->parse();
-//        var_dump($result);
-
-//        var_dump($parser->getExpectedTrackLength(), $parser->getParsedTrackLength());
-
-//        $test = $parser->parseFileHeader();
-
-//        $parser->
-
-//        var_dump($parser);
-
-//        create a Printer object
-//        $printer = new Printer(new TextFormatter(), $parser);
-
-        //output the parse result
-//        $printer->printAll();
+            if ($result instanceof TrackNameEvent) {
+                echo 'TrackName: ' . $result->getData()[2] . '<br>';
+            }
+        } while ($result);
     }
 
 }
