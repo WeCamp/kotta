@@ -38,8 +38,14 @@ class Note implements Symbol
 
     public function __toString()
     {
-        // do some magic to return the Symbol::CONST based on this length and type
-        return SYMBOL::NOTE_1_8;
+        switch($this->getValue()) {
+            case 4: return Symbol::NOTE_1;
+            case 2: return Symbol::NOTE_1_2;
+            case 1: return Symbol::NOTE_1_4;
+            case 0.5: return Symbol::NOTE_1_8;
+            default:
+                throw new \Exception("Symbol not found");
+        }
     }
 
 } 
