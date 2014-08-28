@@ -1,55 +1,54 @@
 {% extends "layout/base.twig" %}
 
 {% block content %}
-    <section class="row">
-        <section class="content column small-12 medium-6 medium-offset-3">
-            <h1><img src="/images/kotta-logo.png" class="margin: 0 auto"/></h1>
+    <h2>Provide a MIDI File</h2>
+    {% include 'includes.responseMsg' %}
 
-            <p>
-                Kotta is your first stop when searching for music sheet generated from MIDI files. Here you can upload a
-                MIDI files that matches your interests and download a music sheet that we have extracted for you.
-            </p>
+    <ul class="tabs provide-midi" data-options="deep_linking:true" data-tab role="tablist">
+        <li class="tab-title active" role="presentational"><a href="#search" role="tab" tabindex="0" aria-selected="true" controls="search">Search</a></li>
+        <li class="tab-title" role="presentational" ><a href="#upload" role="tab" tabindex="0" aria-selected="false" controls="upload">Upload</a></li>
+        <li class="tab-title" role="presentational" ><a href="#history" role="tab" tabindex="0" aria-selected="false" controls="history">History</a></li>
+    </ul>
+    <div class="tabs-content">
+        <section role="tabpanel" aria-hidden="false" class="content active" id="search">
+            {{ Form.open() }}
+                <div class="row collapse">
+                    <div class="small-10 columns">
+                        {{ Form.text('search', null, {'placeholder': 'Please enter a search term', 'style': 'margin-top: 0', 'id': 'search'}) }}
+                    </div>
+                    <div class="small-2 columns">
+                        <a href="#" class="button postfix">Search</a>
+                    </div>
+                </div>
 
-            <p>
-                Downloading your sheet music is a simple process of providing the MIDI file for which you want sheet music,
-                select which track you want to export and then <em>Download</em> a PDF file with your sheet music.
-            </p>
-            <h2>Provide a MIDI File</h2>
-            {% include 'includes.responseMsg' %}
+                <table class="searchresults">
+                    <tr><th>Name</th></tr>
+                </table>
 
-            <ul class="tabs" data-tab role="tablist">
-                <li class="tab-title active" role="presentational" ><a href="#panel-search" role="tab" tabindex="0" aria-selected="true" controls="panel-search">Search</a></li>
-                <li class="tab-title" role="presentational" ><a href="#panel-upload" role="tab" tabindex="0" aria-selected="false" controls="panel-upload">Upload</a></li>
-            </ul>
-            <div class="tabs-content">
-                <section role="tabpanel" aria-hidden="false" class="content active" id="panel-search">
-                    {{ Form.open() }}
-                        <div class="row collapse">
-                            <div class="small-10 columns">
-                                {{ Form.text('search', null, {'placeholder': 'Please enter a search term', 'style': 'margin-top: 0', 'id': 'search'}) }}
-                            </div>
-                            <div class="small-2 columns">
-                                <a href="#" class="button postfix">Search</a>
-                            </div>
-                        </div>
-
-                        <table class="searchresults">
-                            <tr><th>Name</th></tr>
-                        </table>
-
-                    {{ Form.close() }}
-                </section>
-
-                <section role="tabpanel" aria-hidden="false" class="content" id="panel-upload">
-                    {{ Form.open({'files': true}) }}
-                        {{ Form.file('midi_file') }}
-
-                        {{ Form.submit('Upload Midi File', {'class': 'button expand'}) }}
-                    {{ Form.close() }}
-                </section>
-            </div>
+            {{ Form.close() }}
         </section>
-    </section>
+
+        <section role="tabpanel" aria-hidden="false" class="content" id="upload">
+            {{ Form.open({'files': true}) }}
+                {{ Form.file('midi_file') }}
+
+                {{ Form.submit('Upload Midi File', {'class': 'button expand'}) }}
+            {{ Form.close() }}
+        </section>
+
+        <section role="tabpanel" aria-hidden="false" class="content" id="history">
+            {% if Auth.check() %}
+                <table class="historyresults">
+                    <tr><th>Name</th></tr>
+                    <tr><td><a href="kotta2.html"><span class="right">&blacktriangleright;</span>Seal - Kiss from a rose<small>Date: 2014-01-01</small></a></td></tr>
+                    <tr><td><a href="kotta2.html"><span class="right">&blacktriangleright;</span>And you die young<small>Date: 2014-01-01</small></a></td></tr>
+                </table>
+            {% else %}
+                <p class="text-center">This feature is only available if you are signed in.</p>
+                <p class="text-center"><a href=""><img src="/images/facebook-signin.png" /></a></p>
+            {% endif %}
+        </section>
+    </div>
 {% endblock %}
 
 {% block javascript %}

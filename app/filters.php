@@ -90,3 +90,4 @@ Route::filter('csrf', function()
 });
 
 View::share('success', Session::get('success', array()));
+View::share('fakeFacebook', Config::get('facebook.pretend'));

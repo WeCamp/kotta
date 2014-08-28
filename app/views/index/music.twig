@@ -1,15 +1,11 @@
 {% extends "layout/base.twig" %}
 
 {% block content %}
-    <section class="row">
-        <section class="content column small-12">
-            <h1><img src="/images/kotta-logo.png" /></h1>
-            <h2 class="music-sheet">{{ title }}</h2>
+    <h1><img src="/images/kotta-logo.png" /></h1>
+    <h2 class="music-sheet">{{ title }}</h2>
 
-            <img class="music-sheet" src="/images/music_sheet.png" />
+    <img class="music-sheet" src="/images/music_sheet.png" />
 
-            <a href="{{ route('index') }}" class="button right">Convert another MIDI</a>
-            <a href="javascript:window.print();" class="print button right success">Print</a>
-        </section>
-    </section>
+    <a href="{{ route('index') }}" class="button right">Convert another MIDI</a>
+    <a href="javascript:window.print();" class="print button right success">Print</a>
 {% endblock %}
