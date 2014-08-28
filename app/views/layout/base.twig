@@ -3,49 +3,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Kotta Midi Converter{% endblock %}</title>
-        <link rel="stylesheet" type="text/css"
-              href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.3/css/foundation.min.css"/>
-        <link rel="stylesheet" type="text/css"
-              href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.3/css/normalize.min.css"/>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>
-        <style>
-            body {
-                background: #f0f0f0 url('/images/background.jpg') no-repeat fixed;
-                color:      #333;
-            }
-            .content {
-                margin-top:       40px;
-                background-color: white;
-                border:           2px solid #333;
-                padding:          40px;
-                border-radius:    10px;
-                margin-bottom:    80px;
-            }
-            .content h1 {
-                margin-bottom: 40px;
-            }
-            .content h2 {
-                color: #666666;
-                border-bottom: 1px solid #666666;
-                margin-bottom: 20px;
-                margin-top: 20px;
-                text-align: center;
-                font-size: 1.9rem;
-            }
-            .content form {
-                margin-bottom: 0;
-            }
-            .content form input[type=submit] {
-                margin-bottom: 0;
-                margin-top: 40px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="/css/foundation.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/normalize.min.css"/>
+        <script src="/js/modernizr.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/kotta.css"/>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block content %}{% endblock %}
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.3.3/js/foundation.min.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/foundation.min.js"></script>
         <script>
             $(document).foundation();
         </script>

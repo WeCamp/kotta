@@ -190,6 +190,7 @@ return array(
         'View'              => 'Illuminate\Support\Facades\View',
         'Twig'              => 'TwigBridge\Facade\Twig',
 
+        'ConversionService' => 'Service\ConversionFacade',
     ),
 
 );

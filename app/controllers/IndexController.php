@@ -1,8 +1,5 @@
 <?php
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\MessageBag;
-use Kotta\Parser\Parser;
 use Tmont\Midi\Parsing\ParseException;
 
 class IndexController extends Controller
@@ -30,11 +27,11 @@ class IndexController extends Controller
         $validator = Validator::make(array('midi_file' => $file), $rules, $errorMessages);
 
         if ($validator->passes()) {
-            $fileName = substr($file->getRealPath(), 5);
+            $fileTmpName = substr($file->getRealPath(), 5);
+            Session::put('fileName', $file->getClientOriginalName());
             $file->move(Config::get('app.uploader.location'));
 
-            // Todo: cooler processing stuff
-            return Redirect::route('tracks', array($fileName))->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
+            return Redirect::route('tracks', array($fileTmpName));
         }
 
         return Redirect::route('index')->withErrors($validator);
@@ -42,26 +39,48 @@ class IndexController extends Controller
 
     public function getTracks($file)
     {
-        //create a new file parser
-        $parser = new Parser();
-        $fileLocation = Config::get('app.uploader.location');
-        $file = Config::get('app.uploader.location') . '/' . $file;
-
-        $parser->load($file);
-
         try {
-            $midi = $parser->parseToMidiClass();
+            $tracks = ConversionService::getTracks($file);
         }
         catch (ParseException $e)
         {
-            return Response::json(array('status' => 'failed'), 417);
+            File::delete($file);
+
+            return Redirect::route('index')->withErrors('validation.uploader.fileType');
         }
 
-        return Response::json($midi->getTrackNames());
+        $data = array(
+            'fileTmpName' => $file,
+            'fileName' => Session::get('fileName', ''),
+            'tracks' => $tracks,
+        );
+
+        return View::make('index.tracks', $data);
+    }
+
+    public function postTracks($file)
+    {
+        if (Input::has('title'))
+        {
+            Session::put('title', Input::get('title'));
+        }
+        else
+        {
+            $tracks = ConversionService::getTracks($file);
+            Session::put('title', $tracks[Input::get('track')]);
+        }
+        // Todo: cooler processing stuff
+
+        return Redirect::route('musicSheets', array($file));
     }
 
     public function getMusicSheets($file)
     {
-        return View::make('index.music');
+        $data = array(
+            'title' => Session::get('title'),
+        );
+
+        return View::make('index.music', $data);
     }
+
 }

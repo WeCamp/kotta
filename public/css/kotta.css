@@ -1,0 +1,61 @@
+body {
+    background: #f0f0f0 url('/images/background.jpg') no-repeat fixed;
+    background-size: cover;
+    color:      #333;
+}
+.content {
+    margin-top:       40px;
+    background-color: white;
+    border:           2px solid #333;
+    padding:          40px;
+    border-radius:    10px;
+    margin-bottom:    80px;
+}
+.content h1 {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.content h2 {
+    color: #666666;
+    border-bottom: 1px solid #666666;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.9rem;
+}
+.content h2.music-sheet {
+    margin-bottom: 0;
+}
+.content form {
+    margin-bottom: 0;
+}
+.content form input[type=submit] {
+    margin-bottom: 0;
+    margin-top: 40px;
+}
+.content form input[type=text] {
+    margin-top: 20px;
+}
+.midi-info {
+    border: 1px solid #666;
+    padding: 20px 10px;
+}
+a.print.button {
+    margin-right: 2em;
+}
+
+@media print {
+    .content {
+        margin:           0;
+        background-color: transparent;
+        border:           none;
+        padding:          0;
+        border-radius:    0;
+    }
+    .content > * {
+        display: none;
+    }
+    .content .music-sheet {
+        display: block;
+    }
+}
