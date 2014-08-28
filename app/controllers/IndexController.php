@@ -7,13 +7,12 @@ class IndexController extends Controller
     public function getIndex()
     {
         $conversions = array();
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $conversions = Auth::user()->conversions()->take(15)->orderBy('id', 'desc')->get();
         }
 
         $data = array(
-            'midiFiles' => MidiFile::all(array('id', 'name'))->toJson(),
+            'midiFiles'   => MidiFile::all(array('id', 'name'))->toJson(),
             'conversions' => $conversions,
         );
 
@@ -51,13 +50,11 @@ class IndexController extends Controller
     public function getTracks($file)
     {
         $fileTmpName = $file;
-        $file = ConversionService::getFilePath($file);
+        $file        = ConversionService::getFilePath($file);
 
         try {
             $tracks = ConversionService::getTracks($file);
-        }
-        catch (ParseException $e)
-        {
+        } catch (ParseException $e) {
             File::delete($file);
 
             return Redirect::route('index')->withErrors('validation.uploader.fileType');
@@ -65,8 +62,8 @@ class IndexController extends Controller
 
         $data = array(
             'fileTmpName' => $fileTmpName,
-            'fileName' => Session::get('fileName', ''),
-            'tracks' => $tracks,
+            'fileName'    => Session::get('fileName', ''),
+            'tracks'      => $tracks,
         );
 
         return View::make('index.tracks', $data);
@@ -75,19 +72,20 @@ class IndexController extends Controller
     public function postTracks($file)
     {
         $fileTmpName = $file;
-        $file = ConversionService::getFilePath($file);
-        if (Input::has('title'))
-        {
+        $file        = ConversionService::getFilePath($file);
+        if (Input::has('title')) {
             Session::put('title', Input::get('title'));
-        }
-        else
-        {
+        } else {
             $tracks = ConversionService::getTracks($file);
             Session::put('title', $tracks[Input::get('track')]);
         }
-        if (Auth::check())
-        {
-            ConversionService::addConversion($fileTmpName, Session::get('fileName'), Input::get('track'), Session::get('title'));
+        if (Auth::check()) {
+            ConversionService::addConversion(
+                $fileTmpName,
+                Session::get('fileName'),
+                Input::get('track'),
+                Session::get('title')
+            );
         }
         // Todo: cooler processing stuff
 
@@ -97,21 +95,18 @@ class IndexController extends Controller
     public function getMusicSheets($file, $track)
     {
         $fileTmpName = $file;
-        $file = ConversionService::getFilePath($file);
-        if (!Session::has('title'))
-        {
+        $file        = ConversionService::getFilePath($file);
+        if (!Session::has('title')) {
             $tracks = ConversionService::getTracks($file);
-            $title = $tracks[$track];
-        }
-        else
-        {
+            $title  = $tracks[$track];
+        } else {
             $title = Session::get('title');
         }
 
         $data = array(
-            'title' => $title,
+            'title'       => $title,
             'fileTmpName' => $fileTmpName,
-            'track' => $track,
+            'track'       => $track,
         );
 
         return View::make('index.music', $data);
