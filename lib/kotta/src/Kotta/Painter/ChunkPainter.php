@@ -5,6 +5,7 @@ namespace Kotta\Painter;
 use Kotta\Bar;
 use Kotta\Chunk;
 use Kotta\Symbol\Converter;
+use Kotta\Symbol\Note;
 
 class ChunkPainter
 {
@@ -45,6 +46,7 @@ class ChunkPainter
     {
         foreach ($bar->getSymbols() as $symbol) {
             $offset += 35;
+
             $painterSymbol = $this->converter->toSymbol($symbol);
             $this->symbolPainter->paint($canvas, $painterSymbol, $offset);
         }
