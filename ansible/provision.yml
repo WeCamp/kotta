@@ -30,6 +30,6 @@
       mysql_db: "name={{ kotta_db_name }} state=present"
 
     - name: create database user
-      mysql_user: name={{ kotta_db_user }} password={{ kotta_db_password }} priv={{ kotta_db_name }}.*:ALL state=present
+      mysql_user: name={{ kotta_db_user }} password={{ kotta_db_password }} host='%' priv={{ kotta_db_name }}.*:ALL state=present
 
 
