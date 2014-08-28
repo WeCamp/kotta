@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="/css/kotta.css"/>
         {% block stylesheets %}{% endblock %}
     </head>
+    {% block body %}
     <body>
         <section class="row">
             <section class="content column small-12 medium-6 medium-offset-3">
@@ -38,5 +39,6 @@
         </script>
         {% block javascript %}{% endblock %}
     </body>
+    {% endblock %}
 </html>
 

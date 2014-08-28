@@ -1,11 +1,24 @@
 {% extends "layout/base.twig" %}
 
-{% block content %}
-    <h1><img src="/images/kotta-logo.png" /></h1>
-    <h2 class="music-sheet">{{ title }}</h2>
+{% block body %}
+    <body>
 
-    <img class="music-sheet" src="/images/music_sheet.png" />
+    <section class="row">
+        <section class="content column small-12">
+            <h1><img src="/images/kotta-logo.png" /></h1>
+            <h2 class="music-sheet">{{ title }}</h2>
 
-    <a href="{{ route('index') }}" class="button right">Convert another MIDI</a>
-    <a href="javascript:window.print();" class="print button right success">Print</a>
+            <img class="music-sheet" src="/images/music_sheet.png" />
+
+            <a href="{{ route('index') }}" class="button right">Convert another MIDI</a>
+            <a href="javascript:window.print();" class="print button right success">Print</a>
+        </section>
+    </section>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+    </body>
 {% endblock %}

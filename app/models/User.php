@@ -7,4 +7,9 @@ use Illuminate\Auth\UserTrait;
 class User extends Eloquent implements UserInterface, RemindableInterface {
     use RemindableTrait;
     use UserTrait;
+
+    public function conversions()
+    {
+        return $this->hasMany('Conversion');
+    }
 }

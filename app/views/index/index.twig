@@ -14,14 +14,14 @@
             {{ Form.open() }}
                 <div class="row collapse">
                     <div class="small-10 columns">
-                        {{ Form.text('search', null, {'placeholder': 'Please enter a search term', 'style': 'margin-top: 0', 'id': 'search'}) }}
+                        {{ Form.text('search', null, {'placeholder': 'Please enter a search term', 'style': 'margin-top: 0', 'id': 'searchInput'}) }}
                     </div>
                     <div class="small-2 columns">
                         <a href="#" class="button postfix">Search</a>
                     </div>
                 </div>
 
-                <table class="searchresults">
+                <table class="searchResults">
                     <tr><th>Name</th></tr>
                 </table>
 
@@ -38,14 +38,19 @@
 
         <section role="tabpanel" aria-hidden="false" class="content" id="history">
             {% if Auth.check() %}
-                <table class="historyresults">
-                    <tr><th>Name</th></tr>
-                    <tr><td><a href="kotta2.html"><span class="right">&blacktriangleright;</span>Seal - Kiss from a rose<small>Date: 2014-01-01</small></a></td></tr>
-                    <tr><td><a href="kotta2.html"><span class="right">&blacktriangleright;</span>And you die young<small>Date: 2014-01-01</small></a></td></tr>
-                </table>
+                {% if conversions is empty %}
+                    You have no history, lets get converting!
+                {% else %}
+                    <table class="historyresults">
+                        <tr><th>Name</th></tr>
+                        {% for conversion in conversions %}
+                            <tr><td><a href="{{ route('musicSheets', [conversion.file, conversion.track]) }}"><span class="right">&blacktriangleright;</span>{{ conversion.fileName }} - {{ conversion.trackName }}<small>Date: {{ conversion.created_at |date("d/m/Y H:i") }}</small></a></td></tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
             {% else %}
                 <p class="text-center">This feature is only available if you are signed in.</p>
-                <p class="text-center"><a href=""><img src="/images/facebook-signin.png" /></a></p>
+                <p class="text-center"><a href="{{ (fakeFacebook) ? '/login/fb/callback' : 'login/fb' }}" class=" facebook-signin"><img src="/images/facebook-signin.png"/></a></p>
             {% endif %}
         </section>
     </div>
@@ -55,13 +60,14 @@
     <script>
         var midiFiles = {{ midiFiles | raw}};
         var searchLimit = 15;
-        $('#search').keyup(function() {
+        $('#searchInput').keyup(function() {
             var searchResults = [];
             var searchValue = $(this).val().toLowerCase();
             $('.searchResultItem').remove();
             if (searchValue)
             {
                 var html = '';
+
                 $.each(midiFiles, function(index, midiFile) {
                     if (midiFile.name.toLowerCase().search(searchValue) != -1)
                     {
