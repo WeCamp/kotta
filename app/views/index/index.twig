@@ -1,11 +1,29 @@
 {% extends "layout/base.twig" %}
 
 {% block content %}
-    {{ Form.open({'files': true}) }}
+    <section class="row">
+        <section class="content column small-12 medium-6 medium-offset-3">
+            <h1><img src="/images/kotta-logo.png" class="margin: 0 auto"/></h1>
 
-    {{ Form.file('midi_file') }}
+            <p>
+                Kotta is your first stop when searching for music sheet generated from MIDI files. Here you can upload a
+                MIDI files that matches your interests and download a music sheet that we have extracted for you.
+            </p>
 
-    {{ Form.submit('title') }}
+            <p>
+                Downloading your sheet music is a simple process of providing the MIDI file for which you want sheet music,
+                select which track you want to export and then <em>Download</em> a PDF file with your sheet music.
+            </p>
+            {% include 'includes.responseMsg' %}
+            <h2>Provide a MIDI File</h2>
+            {{ Form.open({'files': true}) }}
+                {{ Form.file('midi_file') }}
 
-    {{ Form.close() }}
+                <h2>Select your Track</h2>
+                {{ Form.select('tracks', ['Track1', 'Track2', 'Track3']) }}
+
+                {{ Form.submit('Upload Midi', {'class': 'button expand'}) }}
+                {{ Form.close() }}
+        </section>
+    </section>
 {% endblock %}
