@@ -23,7 +23,8 @@ class Symbol
         if (!is_resource($imageResource)) {
             throw new \RuntimeException('ImageResource should be an instance of Resource');
         }
-        if (!in_array(array('x', 'y'), $centerPoint)) {
+
+        if (!array_key_exists('x',$centerPoint) || !array_key_exists('x',$centerPoint)) {
             throw new \RuntimeException('CenterPoint should contain x or y key');
         }
 

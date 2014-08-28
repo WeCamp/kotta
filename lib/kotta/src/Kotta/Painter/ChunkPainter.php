@@ -12,6 +12,7 @@ class ChunkPainter
     protected $canvas;
     protected $chunk;
     protected $symbolPainter;
+    protected $linecolor;
 
     protected $clefOffset = array('x' => 60, 'y' => 56);
     protected $tempoOffset = 125;
@@ -26,6 +27,7 @@ class ChunkPainter
 
 //        $this->symbolPainter->paint($this->canvas, $chunk->getClef(), $this->clefOffset);
         $this->paintclef(Symbol::CLEF_F);
+        $this->linecolor = imagecolorallocate($this->canvas, 0, 0, 0);
     }
 
     public function paint()
@@ -33,18 +35,20 @@ class ChunkPainter
         $offset = $this->notesOffset;
 
         foreach ($this->chunk->getBars() as $bar) {
-            $offset = $this->drawBar($this->canvas, $bar, $offset);
+            $offset = $this->paintBar($this->canvas, $bar, $offset);
         }
 
         return $this->canvas;
     }
 
-    public function drawBar($canvas, Bar $bar, $offset)
+    public function paintBar($canvas, Bar $bar, $offset)
     {
         foreach ($bar->getSymbols() as $symbol) {
             $offset += 35;
-            $this->symbolPainter->paint($canvas, $symbol, $offset);
+            $painterSymbol = $this->converter->toSymbol($symbol);
+            $this->symbolPainter->paint($canvas, $painterSymbol, $offset);
         }
+        $offset = $this->paintBarEnd($offset);
         return $offset;
     }
 
@@ -57,10 +61,8 @@ class ChunkPainter
         $trans_colour = imagecolorallocatealpha($canvas, 0, 0, 0, 127);
         imagefill($canvas, 0, 0, $trans_colour);
 
-        $black = imagecolorallocate($canvas, 0, 0, 0);
-
         for ($i = 56; $i <= 112; $i += 14) {
-            imageline($canvas, 0, $i, 1400, $i, $black);
+            imageline($canvas, 0, $i, 1400, $i, $this->linecolor);
         }
 
         return $canvas;
@@ -68,8 +70,28 @@ class ChunkPainter
 
     protected function paintclef($clef)
     {
-        $imageToDraw = $this->converter->toImage($clef);
-        imagecopy($this->canvas, $imageToDraw, $this->clefOffset['x'], $this->clefOffset['y'], 0, 0, imagesx($imageToDraw), imagesy($imageToDraw));
+        $symbol      = $this->converter->toSymbol($clef);
+        $imageToDraw = $symbol->getImageResource();
+
+        imagecopy(
+            $this->canvas,
+            $imageToDraw,
+            $this->clefOffset['x'],
+            $this->clefOffset['y'],
+            0,
+            0,
+            imagesx($imageToDraw),
+            imagesy($imageToDraw)
+        );
+    }
+
+    protected function paintBarEnd($offset)
+    {
+        imageline($this->canvas, 0, 0, 1400, 56, $this->linecolor);
+        $offset += 5;
+
+        return $offset;
+
     }
 
 }

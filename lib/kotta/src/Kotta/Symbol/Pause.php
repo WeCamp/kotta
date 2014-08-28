@@ -40,6 +40,7 @@ class Pause implements Symbol
             case 2: return Symbol::PAUSE_1_2;
             case 1: return Symbol::PAUSE_1_4;
             case 0.5: return Symbol::PAUSE_1_8;
+            case 0.25: return Symbol::PAUSE_1_16;
             default:
                 throw new \Exception("Symbol not found");
         }

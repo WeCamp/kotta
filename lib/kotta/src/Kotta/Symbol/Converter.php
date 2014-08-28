@@ -169,30 +169,6 @@ class Converter
     }
 
     /**
-     * @param $symbol
-     *
-     * @return resource
-     * @throws \InvalidArgumentException
-     *
-     * @deprecated
-     */
-    public function toImage($symbolName)
-    {
-        $symbolName = (string)$symbolName;
-        if (!array_key_exists($symbolName, $this->symbolMap)) {
-            throw new \InvalidArgumentException('The symbol ' . $symbolName . ' does not exist in the image list.');
-        }
-
-        $filename      = $this->symbolMap[$symbolName]['image'];
-        $imageResource = imagecreatefrompng($this->resourcePath . DIRECTORY_SEPARATOR . $filename);
-        imagealphablending($imageResource, true);
-        imagesavealpha($imageResource, true);
-
-        return $imageResource;
-    }
-
-
-    /**
      * Get symbol
      *
      * @param string $symbolName Name of the symbol

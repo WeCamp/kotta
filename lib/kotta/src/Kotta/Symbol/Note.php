@@ -43,6 +43,7 @@ class Note implements Symbol
             case 2: return Symbol::NOTE_1_2;
             case 1: return Symbol::NOTE_1_4;
             case 0.5: return Symbol::NOTE_1_8;
+            case 0.25: return Symbol::NOTE_1_16;
             default:
                 throw new \Exception("Symbol not found");
         }
