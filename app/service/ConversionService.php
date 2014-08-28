@@ -10,11 +10,58 @@ class ConversionService
     {
         //create a new file parser
         $parser = new Parser();
-        $file = \Config::get('app.uploader.location') . '/' . $file;
-
         $parser->load($file);
         $midi = $parser->parseToMidiClass();
 
-        return $midi->getTrackNames();
+        return $this->cleanTracks($midi->getTrackNames());
+    }
+
+    public function cleanTracks($tracks)
+    {
+        foreach ($tracks as $key => $track)
+        {
+            if ($track == '')
+            {
+                $tracks[$key] = 'Track ' . ($key + 1);
+            }
+        }
+
+        return $tracks;
+    }
+
+    public function getSearchResult($result)
+    {
+        $midiFile = \MidiFile::find($result);
+        if ($midiFile)
+        {
+            \Session::put('fileName', $midiFile->name);
+            $path = base_path('uploads/searchFiles/search-midi-' . $result . '.mid');
+            if (!\File::exists($path))
+            {
+                \File::put($path, file_get_contents(\Config::get('app.midiLibraryUrl') . $midiFile->url));
+            }
+
+            return $path;
+        }
+
+        return false;
+    }
+
+    public function getFilePath($file)
+    {
+        if (is_numeric($file))
+        {
+            $file = $this->getSearchResult($file);
+            if (!$file)
+            {
+                return \Redirect::route('index')->withErrors('validation.uploader.searchResultError');
+            }
+        }
+        else
+        {
+            $file = \Config::get('app.uploader.location') . '/' . $file;
+        }
+
+        return $file;
     }
 }

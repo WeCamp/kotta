@@ -16,11 +16,76 @@
             </p>
             <h2>Provide a MIDI File</h2>
             {% include 'includes.responseMsg' %}
-            {{ Form.open({'files': true}) }}
-                {{ Form.file('midi_file') }}
 
-                {{ Form.submit('Upload Midi File', {'class': 'button expand'}) }}
-            {{ Form.close() }}
+            <ul class="tabs" data-tab role="tablist">
+                <li class="tab-title active" role="presentational" ><a href="#panel-search" role="tab" tabindex="0" aria-selected="true" controls="panel-search">Search</a></li>
+                <li class="tab-title" role="presentational" ><a href="#panel-upload" role="tab" tabindex="0" aria-selected="false" controls="panel-upload">Upload</a></li>
+            </ul>
+            <div class="tabs-content">
+                <section role="tabpanel" aria-hidden="false" class="content active" id="panel-search">
+                    {{ Form.open() }}
+                        <div class="row collapse">
+                            <div class="small-10 columns">
+                                {{ Form.text('search', null, {'placeholder': 'Please enter a search term', 'style': 'margin-top: 0', 'id': 'search'}) }}
+                            </div>
+                            <div class="small-2 columns">
+                                <a href="#" class="button postfix">Search</a>
+                            </div>
+                        </div>
+
+                        <table class="searchresults">
+                            <tr><th>Name</th></tr>
+                        </table>
+
+                    {{ Form.close() }}
+                </section>
+
+                <section role="tabpanel" aria-hidden="false" class="content" id="panel-upload">
+                    {{ Form.open({'files': true}) }}
+                        {{ Form.file('midi_file') }}
+
+                        {{ Form.submit('Upload Midi File', {'class': 'button expand'}) }}
+                    {{ Form.close() }}
+                </section>
+            </div>
         </section>
     </section>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var midiFiles = {{ midiFiles | raw}};
+        var searchLimit = 15;
+        $('#search').keyup(function() {
+            var searchResults = [];
+            var searchValue = $(this).val().toLowerCase();
+            $('.searchResultItem').remove();
+            if (searchValue)
+            {
+                var html = '';
+                $.each(midiFiles, function(index, midiFile) {
+                    if (midiFile.name.toLowerCase().search(searchValue) != -1)
+                    {
+                        searchResults[searchResults.length] = midiFile;
+                    }
+                });
+
+                $.each(searchResults, function(index, midiFile) {
+                    html += '<tr class="searchResultItem"><td><a href="{{ route('tracks') }}/' + midiFile.id + '">' + midiFile.name + ' <span class="right">&blacktriangleright;</span></a></td></tr>';
+                    if (index >= searchLimit)
+                    {
+                        return false;
+                    }
+                });
+                var resultsCount = searchResults.length;
+                if (resultsCount >= searchLimit)
+                {
+                    resultsCount = searchLimit;
+                }
+
+                html += '<tr class="searchResultItem right"><td>Showing ' + resultsCount + ' of ' + searchResults.length + ' results</td></tr>';
+                $('.searchresults').append(html);
+            }
+        });
+    </script>
 {% endblock %}

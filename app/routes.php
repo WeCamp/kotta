@@ -28,7 +28,7 @@ Route::post(
 );
 
 Route::get(
-    '/tracks/{file}',
+    '/tracks/{file?}',
     array(
         'as'   => 'tracks',
         'uses' => 'IndexController@getTracks'
