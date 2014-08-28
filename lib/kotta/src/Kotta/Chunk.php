@@ -2,6 +2,8 @@
 
 namespace Kotta;
 
+use Kotta\Symbol\Symbol;
+
 class Chunk {
 
     protected $bars = array();
@@ -14,6 +16,11 @@ class Chunk {
     public function getBars()
     {
         return $this->bars;
+    }
+
+    public function getClef()
+    {
+        return Symbol::CLEF_G;
     }
 
 }
