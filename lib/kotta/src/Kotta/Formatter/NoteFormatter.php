@@ -8,7 +8,6 @@ use Tmont\Midi\Delta;
 use Tmont\Midi\Event;
 use Tmont\Midi\FileHeader;
 use Tmont\Midi\Reporting\Formatter;
-use Whoops\Example\Exception;
 
 class NoteFormatter extends Formatter
 {
@@ -47,13 +46,15 @@ class NoteFormatter extends Formatter
                     $this->playingNote = false;
                 }
                 break;
+            case Event\EventType::NOTE_OFF:
+                $this->pushNote($this->playingNote, $this->lastDeltaTicks);
+                break;
             case Event\EventType::META:
                 switch($event->getSubtype()) {
                     case 89:
                         break;
                 }
         }
-
     }
 
     public function formatDelta(Delta $delta)
