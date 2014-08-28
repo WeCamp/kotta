@@ -120,7 +120,7 @@ return array(
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
 
-        'Barryvdh\Debugbar\ServiceProvider',
+//        'Barryvdh\Debugbar\ServiceProvider',
         'TwigBridge\ServiceProvider',
         'Service\KottaServiceProvider'
 
