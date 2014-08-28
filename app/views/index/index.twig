@@ -22,7 +22,7 @@
                 </div>
 
                 <table class="searchResults">
-                    <tr><th>Name</th></tr>
+                    <tr class="searchResultItem"><td class='center'>No results</td></tr>
                 </table>
 
             {{ Form.close() }}
@@ -66,7 +66,7 @@
             $('.searchResultItem').remove();
             if (searchValue)
             {
-                var html = '';
+                var html = '<tr class="searchResultItem"><th>Name</th></tr>';
 
                 $.each(midiFiles, function(index, midiFile) {
                     if (midiFile.name.toLowerCase().search(searchValue) != -1)
@@ -90,6 +90,10 @@
 
                 html += '<tr class="searchResultItem right"><td>Showing ' + resultsCount + ' of ' + searchResults.length + ' results</td></tr>';
                 $('.searchresults').append(html);
+            }
+            else
+            {
+                $('.searchresults').append('<tr class="searchResultItem"><td class='center'>No results</td></tr>');
             }
         });
     </script>
