@@ -57,8 +57,11 @@ class IndexController extends Controller
             return Response::json(array('status' => 'failed'), 417);
         }
 
-
         return Response::json($midi->getTrackNames());
     }
 
+    public function getMusicSheets($file)
+    {
+        return View::make('index.music');
+    }
 }
