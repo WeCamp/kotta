@@ -19,9 +19,16 @@ class NoteFormatter extends Formatter
     protected $track;
     protected $currentTrack = -1;
 
-    public function __construct($track)
+    public function __construct($track = 0)
     {
         $this->track = $track;
+    }
+
+    public function setTrackNumber($trackNumber)
+    {
+        $this->track = $trackNumber;
+
+        return $this;
     }
 
     public function formatFileHeader(FileHeader $fileHeader)
