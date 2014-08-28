@@ -2,7 +2,7 @@
 
 namespace Kotta\Symbol;
 
-use Kotta\Symbol;
+use Kotta\Painter\Symbol;
 
 class Converter
 {
@@ -176,14 +176,14 @@ class Converter
      *
      * @deprecated
      */
-    public function toImage($symbol)
+    public function toImage($symbolName)
     {
-        $symbol = (string)$symbol;
-        if (!array_key_exists($symbol, $this->symbolMap)) {
-            throw new \InvalidArgumentException('The symbol ' . $symbol . ' does not exist in the image list.');
+        $symbolName = (string)$symbolName;
+        if (!array_key_exists($symbolName, $this->symbolMap)) {
+            throw new \InvalidArgumentException('The symbol ' . $symbolName . ' does not exist in the image list.');
         }
 
-        $filename      = $this->symbolMap[$symbol];
+        $filename      = $this->symbolMap[$symbolName]['image'];
         $imageResource = imagecreatefrompng($this->resourcePath . DIRECTORY_SEPARATOR . $filename);
         imagealphablending($imageResource, true);
         imagesavealpha($imageResource, true);
