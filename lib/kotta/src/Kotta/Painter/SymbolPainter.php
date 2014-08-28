@@ -5,7 +5,7 @@ namespace Kotta\Painter;
 use Kotta\Symbol\Converter;
 use Kotta\Symbol\Symbol as SymbolInterface;
 
-class Symbol
+class SymbolPainter
 {
 
     protected $converter;
@@ -23,7 +23,7 @@ class Symbol
     function paint($canvas, SymbolInterface $symbol, $offset)
     {
         $imageToDraw = $this->converter->toImage($symbol);
-        imagecopy($canvas, $imageToDraw, 0, 0, 0, 0, imagesx($imageToDraw), imagesy($imageToDraw));
+        imagecopy($canvas, $imageToDraw, $offset, 56, 0, 0, imagesx($imageToDraw), imagesy($imageToDraw));
     }
 
 }

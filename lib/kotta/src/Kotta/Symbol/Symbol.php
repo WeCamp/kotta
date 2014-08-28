@@ -4,7 +4,7 @@ namespace Kotta\Symbol;
 
 interface Symbol
 {
-    const CLEF_C = 'CLEF_C';
+    const CLEF_C = 'clef_c';
     const CLEF_F = 'clef_f';
     const CLEF_G = 'clef_g';
 
@@ -21,12 +21,12 @@ interface Symbol
     const NOTE_1_16 = 'note_1_16';
     const NOTE_1_32 = 'note_1_32';
 
-    const PAUSE_1    = 'rest_1';
-    const PAUSE_1_4  = 'rest_1_4';
-    const PAUSE_1_8  = 'rest_1_8';
-    const PAUSE_1_16 = 'rest_1_16';
-    const PAUSE_1_32 = 'rest_1_32';
-    const PAUSE_1_64 = 'rest_1_64';
+    const PAUSE_1    = 'pause_1';
+    const PAUSE_1_4  = 'pause_1_4';
+    const PAUSE_1_8  = 'pause_1_8';
+    const PAUSE_1_16 = 'pause_1_16';
+    const PAUSE_1_32 = 'pause_1_32';
+    const PAUSE_1_64 = 'pause_1_64';
 
     public function getName();
 

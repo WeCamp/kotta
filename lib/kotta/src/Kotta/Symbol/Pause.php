@@ -9,7 +9,7 @@ class Pause implements Symbol
     protected $isContinued;
 
     protected $name = 'pause';
-    protected $type = 'pause';
+    protected $type = 'PAUSE';
 
     public function __construct($value, $isContinued = false)
     {
@@ -35,7 +35,9 @@ class Pause implements Symbol
     public function __toString()
     {
         // do some magic to return the Symbol::CONST based on this length and type
-        return constant(SYMBOL::$this->type . '_' . '1_8');
+        return constant('SELF::' . $this->type . '_' . '1_8');
+
+
     }
 
 } 
