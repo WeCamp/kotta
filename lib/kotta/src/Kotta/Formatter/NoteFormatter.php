@@ -17,6 +17,7 @@ class NoteFormatter extends Formatter
     protected $timeDivision;
     protected $key;
     protected $track;
+    protected $currentTrack = -1;
 
     public function __construct($track)
     {
@@ -33,8 +34,14 @@ class NoteFormatter extends Formatter
     {
         $data = $event->getData();
 
-        if($data[0] != $this->track)
+        if($event->getType() == Event\EventType::PROGRAM_CHANGE) {
+            $this->currentTrack = $data[0];
             return;
+        }
+
+        if($this->currentTrack != $this->track) {
+            return;
+        }
 
         switch ($event->getType()) {
             case Event\EventType::NOTE_ON:
@@ -51,14 +58,17 @@ class NoteFormatter extends Formatter
                 break;
             case Event\EventType::META:
                 switch($event->getSubtype()) {
-                    case 89:
-                        break;
+
                 }
         }
     }
 
     public function formatDelta(Delta $delta)
     {
+        if($this->currentTrack != $this->track) {
+            return;
+        }
+
         $data = $delta->getData();
 
         $this->lastDeltaTicks = $data[0];
@@ -70,6 +80,11 @@ class NoteFormatter extends Formatter
     public function getStream()
     {
         return $this->stream;
+    }
+
+    public function getCleft()
+    {
+
     }
 
     protected function pushNote($noteNumber, $ticks)
