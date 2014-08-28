@@ -5,7 +5,6 @@ namespace Kotta\Painter;
 use Kotta\Bar;
 use Kotta\Chunk;
 use Kotta\Symbol\Converter;
-use Kotta\Symbol\Symbol;
 
 class ChunkPainter
 {
@@ -14,9 +13,9 @@ class ChunkPainter
     protected $symbolPainter;
     protected $linecolor;
 
-    protected $clefOffset = array('x' => 60, 'y' => 56);
-    protected $tempoOffset = 125;
-    protected $notesOffset = 200;
+    protected $clefOffset = 65;
+    protected $tempoOffset = 100;
+    protected $notesOffset = 130;
 
     public function __construct(Chunk $chunk, SymbolPainter $symbolPainter, Converter $converter)
     {
@@ -25,8 +24,9 @@ class ChunkPainter
         $this->symbolPainter = $symbolPainter;
         $this->canvas        = $this->createCanvas();
 
-//        $this->symbolPainter->paint($this->canvas, $chunk->getClef(), $this->clefOffset);
-        $this->paintclef(Symbol::CLEF_F);
+        $painterSymbol = $this->converter->toSymbol($chunk->getClef());
+        $this->symbolPainter->paint($this->canvas, $painterSymbol, $this->clefOffset);
+
         $this->linecolor = imagecolorallocate($this->canvas, 0, 0, 0);
     }
 
@@ -87,8 +87,7 @@ class ChunkPainter
 
     protected function paintBarEnd($offset)
     {
-        imageline($this->canvas, 0, 0, 1400, 56, $this->linecolor);
-        $offset += 5;
+        imageline($this->canvas, $offset, 56, $offset, 112, $this->linecolor);
 
         return $offset;
 
