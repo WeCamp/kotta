@@ -92,10 +92,9 @@ class IndexController extends Controller
         return Redirect::route('musicSheets', array($fileTmpName, Input::get('track')));
     }
 
-    public function getMusicSheets($file, $track)
+    public function getMusicSheets($fileName, $track)
     {
-        $fileTmpName = $file;
-        $file        = ConversionService::getFilePath($file);
+        $file        = ConversionService::getFilePath($fileName);
         if (!Session::has('title')) {
             $tracks = ConversionService::getTracks($file);
             $title  = $tracks[$track];
@@ -103,10 +102,30 @@ class IndexController extends Controller
             $title = Session::get('title');
         }
 
+
+        $fileLocation = __DIR__ . '/../../uploads/' . $fileName;
+
+        $builder = new \Kotta\Builder();
+        $imageResources = $builder->generateImages($fileLocation, 0);
+
+        $chunks = array();
+        foreach ($imageResources as $imageResource) {
+            ob_start();
+            imagepng($imageResource);
+            // Capture the output
+            $imagedata = ob_get_contents();
+            // Clear the output buffer
+            ob_end_clean();
+
+
+            $chunks[] = base64_encode($imagedata);
+        }
+
         $data = array(
             'title'       => $title,
-            'fileTmpName' => $fileTmpName,
+            'fileTmpName' => $fileName,
             'track'       => $track,
+            'chunks'      => $chunks
         );
 
         return View::make('index.music', $data);

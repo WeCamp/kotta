@@ -8,7 +8,10 @@
             <h1><img src="/images/kotta-logo.png" /></h1>
             <h2 class="music-sheet">{{ title }}</h2>
 
-            <img class="music-sheet" src="/images/music_sheet.png" />
+            {% for chunk in chunks %}
+                <img src="data:image/png;base64,{{ chunk | raw }}" />
+            {% endfor %}
+
             <a href="{{ route('index') }}" class="button left">&laquo; Convert another MIDI</a>
             <a href="javascript:window.print();" class="print button right success">Print</a>
             <div class="right button-filler"> or </div>

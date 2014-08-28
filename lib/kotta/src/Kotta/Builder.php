@@ -42,6 +42,6 @@ class Builder
         $chunkPainter = new ChunkPainter($chunk, $symbolPainter, $symbolConverter);
         $png          = $chunkPainter->paint();
 
-        return imagepng($png);
+        return $png;
     }
 } 
