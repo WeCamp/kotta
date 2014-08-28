@@ -64,4 +64,22 @@ class ConversionService
 
         return $file;
     }
+
+    public function addConversion($file, $fileName, $track, $trackName)
+    {
+        $conversion = array(
+            'user_id' => \Auth::user()->id,
+            'file' => $file,
+            'fileName' => $fileName,
+            'track' => $track,
+            'trackName' => $trackName,
+        );
+
+        if (\Conversion::create($conversion))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

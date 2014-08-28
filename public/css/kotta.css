@@ -46,12 +46,35 @@ p {
 a.print.button {
     margin-right: 2em;
 }
-.searchresults {
+.searchresults, .historyresults {
     width: 100%;
 }
-.searchresults a {
+.searchresults a, .historyresults a {
     display: block;
 }
+.historyresults a small {
+    display: block;
+    color: silver;
+}
+.facebook-signin, .signout {
+    margin-top: -35px;
+    margin-right: -35px;
+}
+.tabs.provide-midi {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+.tabs.provide-midi li {
+    width: 33.3333%;
+    text-align: center;
+}
+.tabs dd a, .tabs .tab-title a {
+    background: transparent;
+}
+.tabs dd.active a, .tabs .tab-title.active a {
+    background: #e0e0e0;
+}
+
 
 @media print {
     .row > .content {

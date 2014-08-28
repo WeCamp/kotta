@@ -75,6 +75,9 @@ return [
         ],
         'Lang' => [
             'is_safe' => true
+        ],
+        'Auth' => [
+            'is_safe' => true
         ]
     ],
 

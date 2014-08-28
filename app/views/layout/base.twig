@@ -9,8 +9,29 @@
         <link rel="stylesheet" type="text/css" href="/css/kotta.css"/>
         {% block stylesheets %}{% endblock %}
     </head>
+    {% block body %}
     <body>
-        {% block content %}{% endblock %}
+        <section class="row">
+            <section class="content column small-12 medium-6 medium-offset-3">
+                {% if Auth.check() %}
+                    <a href="/logout" class='signout button tiny radius right'>Logout</a>
+                {% else %}
+                    <a href="{{ (fakeFacebook) ? '/login/fb/callback' : 'login/fb' }}" class="right facebook-signin"><img src="/images/facebook-signin.png"/></a>
+                {% endif %}
+                <h1><img src="/images/kotta-logo.png" class="margin: 0 auto"/></h1>
+
+                <p>
+                    Kotta is your first stop when searching for music sheet generated from MIDI files. Here you can upload a
+                    MIDI files that matches your interests and download a music sheet that we have extracted for you.
+                </p>
+
+                <p>
+                    Downloading your sheet music is a simple process of providing the MIDI file for which you want sheet music,
+                    select which track you want to export and then <em>Download</em> a PDF file with your sheet music.
+                </p>
+                {% block content %}{% endblock %}
+            </section>
+        </section>
         <script src="/js/jquery.min.js"></script>
         <script src="/js/foundation.min.js"></script>
         <script>
@@ -18,5 +39,6 @@
         </script>
         {% block javascript %}{% endblock %}
     </body>
+    {% endblock %}
 </html>
 

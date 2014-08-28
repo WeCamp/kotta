@@ -50,3 +50,58 @@ Route::get(
         'uses' => 'IndexController@getMusicSheets'
     )
 );
+
+Route::get('login/fb', function() {
+    $facebook = new Facebook(Config::get('facebook'));
+    $params = array(
+        'redirect_uri' => url('/login/fb/callback'),
+        'scope' => 'email',
+    );
+    return Redirect::away($facebook->getLoginUrl($params));
+});
+
+Route::get('login/fb/callback', function() {
+    $code = Input::get('code');
+    if (strlen($code) == 0 && App::environment() == 'local')
+    {
+        $user = User::first();
+    }
+    else
+    {
+        if (strlen($code) == 0) return Redirect::to('/')->withError('There was an error communicating with Facebook');
+
+        $facebook = new Facebook(Config::get('facebook'));
+        $uid = $facebook->getUser();
+
+        if ($uid == 0) return Redirect::to('/')->withError('There was an error');
+
+        $me = $facebook->api('/me');
+
+        $profile = Profile::whereUid($uid)->first();
+        if (empty($profile)) {
+            $user = new User;
+            $user->name = $me['first_name'].' '.$me['last_name'];
+            $user->email = $me['email'];
+
+            $user->save();
+
+            $profile = new Profile();
+            $profile->uid = $uid;
+            $profile->username = $me['email'];
+            $profile = $user->profiles()->save($profile);
+        }
+
+        $profile->access_token = $facebook->getAccessToken();
+        $profile->save();
+
+        $user = $profile->user;
+    }
+    Auth::login($user);
+
+    return Redirect::to('/')->with('success', 'Logged in with Facebook');
+});
+
+Route::get('/logout', function() {
+    Auth::logout();
+    return Redirect::to('/');
+});
