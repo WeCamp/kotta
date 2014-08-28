@@ -6,7 +6,11 @@ class IndexController extends Controller
 {
     public function getIndex()
     {
-        return View::make('index.index');
+        $data = array(
+            'midiFiles' => MidiFile::all(array('id', 'name'))->toJson(),
+        );
+
+        return View::make('index.index', $data);
     }
 
     public function postMidiFile()
@@ -39,6 +43,9 @@ class IndexController extends Controller
 
     public function getTracks($file)
     {
+        $fileTmpName = $file;
+        $file = ConversionService::getFilePath($file);
+
         try {
             $tracks = ConversionService::getTracks($file);
         }
@@ -50,7 +57,7 @@ class IndexController extends Controller
         }
 
         $data = array(
-            'fileTmpName' => $file,
+            'fileTmpName' => $fileTmpName,
             'fileName' => Session::get('fileName', ''),
             'tracks' => $tracks,
         );
@@ -60,6 +67,8 @@ class IndexController extends Controller
 
     public function postTracks($file)
     {
+        $fileTmpName = $file;
+        $file = ConversionService::getFilePath($file);
         if (Input::has('title'))
         {
             Session::put('title', Input::get('title'));
@@ -71,13 +80,24 @@ class IndexController extends Controller
         }
         // Todo: cooler processing stuff
 
-        return Redirect::route('musicSheets', array($file));
+        return Redirect::route('musicSheets', array($fileTmpName, Input::get('track')));
     }
 
-    public function getMusicSheets($file)
+    public function getMusicSheets($file, $track)
     {
+        $file = ConversionService::getFilePath($file);
+        if (!Session::has('title'))
+        {
+            $tracks = ConversionService::getTracks($file);
+            $title = $tracks[$track];
+        }
+        else
+        {
+            $title = Session::get('title');
+        }
+
         $data = array(
-            'title' => Session::get('title'),
+            'title' => $title,
         );
 
         return View::make('index.music', $data);
