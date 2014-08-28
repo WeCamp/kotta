@@ -6,6 +6,7 @@ php_session_cookie_secure: "Off"
 php_log_dir: "/var/log/php5"
 php_fpm_user: "www-data"
 php_fpm_group: "www-data"
+php_allow_url_fopen: "On"
 
 php_opcache_revalidate_freq: 0
 
