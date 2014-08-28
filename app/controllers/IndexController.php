@@ -38,21 +38,21 @@ class IndexController extends Controller
         $validator = Validator::make(array('midi_file' => $file), $rules, $errorMessages);
 
         if ($validator->passes()) {
+            $fileName = substr($file->getRealPath(), 5);
             $file->move(Config::get('app.uploader.location'));
-            // Todo: cooler processing stuff
 
-            return Redirect::to('/')->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
+            // Todo: cooler processing stuff
+            return Redirect::route('tracks', array($fileName))->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
         }
 
-        return Redirect::to('/')->withErrors($validator);
+        return Redirect::route('index')->withErrors($validator);
     }
 
-    public function splitTracks()
+    public function getTracks($file)
     {
         $fileLocation = Config::get('app.uploader.location');
 
-        $file = $fileLocation . '/name.midi';
-        $file = __DIR__ . '/../../vendor/tmont/midiparser/sample/And_We_Die_Young.mid';
+        $file = Config::get('app.uploader.location') . '/' . $file;
 
         //create a new file parser
         $parser = new Parser();
