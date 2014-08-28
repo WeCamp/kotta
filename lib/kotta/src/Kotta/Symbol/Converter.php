@@ -29,10 +29,10 @@ class Converter
             )
         ),
         'clef_g'     => array(
-            'image'       => 'clef_g_copy.png',
+            'image'       => 'clef_g.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 25,
+                'y' => 50
             )
         ),
         'dot'        => array(
@@ -52,64 +52,64 @@ class Converter
         'natural'    => array(
             'image'       => 'natural.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 1,
+                'y' => 27
             )
         ),
         'sharp'      => array(
             'image'       => 'sharp.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 18,
+                'y' => 27
             )
         ),
         'tie'        => array(
             'image'       => 'tie.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 15,
+                'y' => 6
             )
         ),
         'note_1'     => array(
             'image'       => 'note_full.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 12,
+                'y' => 45
             )
         ),
         'note_1_2'   => array(
             'image'       => 'note_half.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 11,
+                'y' => 45
             )
         ),
         'note_1_4'   => array(
             'image'       => 'note_quarter.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 11,
+                'y' => 45
             )
         ),
         'note_1_8'   => array(
             'image'       => 'note_eighth.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 11,
+                'y' => 45
             )
         ),
         'note_1_16'  => array(
             'image'       => 'note_sixteenth.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 11,
+                'y' => 45
             )
         ),
         'note_1_32'  => array(
             'image'       => 'note_thirtysecond.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 11,
+                'y' => 45
             )
         ),
         'pause_1'    => array(
@@ -129,8 +129,8 @@ class Converter
         'pause_1_4'  => array(
             'image'       => 'rest_quarter.png',
             'centerPoint' => array(
-                'x' => 0,
-                'y' => 0
+                'x' => 18,
+                'y' => 26
             )
         ),
         'pause_1_8'  => array(
