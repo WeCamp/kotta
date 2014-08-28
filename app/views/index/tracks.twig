@@ -22,7 +22,8 @@
                     <a href="{{ route('index') }}" class="right">&cross;</a>
                 </section>
                 <h2 id="select-track">Select your Track</h2>
-                {{ Form.select('tracks', tracks) }}
+                {{ Form.select('track', tracks) }}
+                {{ Form.text('title', '', {'placeholder': 'Overwrite track name here'}) }}
 
                 {{ Form.submit('Show music sheet', {'class': 'button expand success'}) }}
             {{ Form.close() }}

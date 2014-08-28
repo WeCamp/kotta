@@ -23,6 +23,9 @@ body {
     text-align: center;
     font-size: 1.9rem;
 }
+.content h2.music-sheet {
+    margin-bottom: 0;
+}
 .content form {
     margin-bottom: 0;
 }
@@ -30,11 +33,13 @@ body {
     margin-bottom: 0;
     margin-top: 40px;
 }
+.content form input[type=text] {
+    margin-top: 20px;
+}
 .midi-info {
     border: 1px solid #666;
     padding: 20px 10px;
 }
-
 a.print.button {
     margin-right: 2em;
 }
@@ -47,7 +52,7 @@ a.print.button {
         padding:          0;
         border-radius:    0;
     }
-    .content * {
+    .content > * {
         display: none;
     }
     .content .music-sheet {

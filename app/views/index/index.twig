@@ -15,12 +15,12 @@
                 select which track you want to export and then <em>Download</em> a PDF file with your sheet music.
             </p>
             <h2>Provide a MIDI File</h2>
+            {% include 'includes.responseMsg' %}
             {{ Form.open({'files': true}) }}
-                {% include 'includes.responseMsg' %}
                 {{ Form.file('midi_file') }}
 
                 {{ Form.submit('Upload Midi File', {'class': 'button expand'}) }}
-                {{ Form.close() }}
+            {{ Form.close() }}
         </section>
     </section>
 {% endblock %}

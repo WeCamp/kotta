@@ -4,12 +4,10 @@ namespace Kotta\Formatter;
 
 use Kotta\Symbol\Note;
 use Kotta\Symbol\Pause;
-use Tmont\Midi\Chunk;
 use Tmont\Midi\Delta;
 use Tmont\Midi\Event;
 use Tmont\Midi\FileHeader;
 use Tmont\Midi\Reporting\Formatter;
-use Tmont\Midi\Util\Key;
 
 class NoteFormatter extends Formatter
 {
@@ -18,6 +16,12 @@ class NoteFormatter extends Formatter
     protected $playingNote;
     protected $timeDivision;
     protected $key;
+    protected $track;
+
+    public function __construct($track)
+    {
+        $this->track = $track;
+    }
 
     public function formatFileHeader(FileHeader $fileHeader)
     {
@@ -29,8 +33,11 @@ class NoteFormatter extends Formatter
     {
         $data = $event->getData();
 
+        if($data[0] != $this->track)
+            return;
+
         switch ($event->getType()) {
-            case 144: // Note event
+            case Event\EventType::NOTE_ON:
                 list(, $noteNumber, $velocity) = $data;
                 if($velocity) {
                     $this->playingNote = $noteNumber;
@@ -39,18 +46,21 @@ class NoteFormatter extends Formatter
                     $this->playingNote = false;
                 }
                 break;
-            case 255:
+            case Event\EventType::NOTE_OFF:
+                $this->pushNote($this->playingNote, $this->lastDeltaTicks);
+                break;
+            case Event\EventType::META:
                 switch($event->getSubtype()) {
                     case 89:
                         break;
                 }
         }
-
     }
 
     public function formatDelta(Delta $delta)
     {
         $data = $delta->getData();
+
         $this->lastDeltaTicks = $data[0];
         if(!$this->playingNote) {
             $this->pushPause($this->lastDeltaTicks);
@@ -71,13 +81,6 @@ class NoteFormatter extends Formatter
         $this->pushCommand($note);
     }
 
-    protected function ticksToValue($ticks)
-    {
-        $value = round($ticks / $this->timeDivision, 1);
-
-        return $value;
-    }
-
     protected function pushPause($ticks)
     {
         $value = $this->ticksToValue($ticks);
@@ -88,7 +91,13 @@ class NoteFormatter extends Formatter
         $pause = new Pause($value);
 
         $this->pushCommand($pause);
+    }
 
+    protected function ticksToValue($ticks)
+    {
+        $value = round($ticks / $this->timeDivision, 1);
+
+        return $value;
     }
 
     protected function pushCommand($command)
