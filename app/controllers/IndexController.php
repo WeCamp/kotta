@@ -6,8 +6,15 @@ class IndexController extends Controller
 {
     public function getIndex()
     {
+        $conversions = array();
+        if (Auth::check())
+        {
+            $conversions = Auth::user()->conversions()->take(15)->orderBy('id', 'desc')->get();
+        }
+
         $data = array(
             'midiFiles' => MidiFile::all(array('id', 'name'))->toJson(),
+            'conversions' => $conversions,
         );
 
         return View::make('index.index', $data);
@@ -77,6 +84,10 @@ class IndexController extends Controller
         {
             $tracks = ConversionService::getTracks($file);
             Session::put('title', $tracks[Input::get('track')]);
+        }
+        if (Auth::check())
+        {
+            ConversionService::addConversion($fileTmpName, Session::get('fileName'), Input::get('track'), Session::get('title'));
         }
         // Todo: cooler processing stuff
 
