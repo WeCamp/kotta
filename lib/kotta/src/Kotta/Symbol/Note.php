@@ -36,6 +36,10 @@ class Note implements Symbol
         return $this->value;
     }
 
+    /**
+     * The default is a random note because we dont know what to do with it..
+     * @return string
+     */
     public function __toString()
     {
         switch($this->getValue()) {
@@ -45,7 +49,7 @@ class Note implements Symbol
             case 0.5: return Symbol::NOTE_1_8;
             case 0.25: return Symbol::NOTE_1_16;
             default:
-                throw new \Exception("Symbol not found");
+                return Symbol::NOTE_1_4;
         }
     }
 

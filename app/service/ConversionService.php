@@ -35,7 +35,7 @@ class ConversionService
         if ($midiFile)
         {
             \Session::put('fileName', $midiFile->name);
-            $path = base_path('uploads/searchFiles/search-midi-' . $result . '.mid');
+            $path = \Config::get('app.uploader.location') . '/searchFiles/search-midi-' . $result . '.mid';
             if (!\File::exists($path))
             {
                 \File::put($path, file_get_contents(\Config::get('app.midiLibraryUrl') . $midiFile->url));

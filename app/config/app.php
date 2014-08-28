@@ -3,7 +3,7 @@
 return array(
 
     'uploader' => array(
-        'location' => __DIR__ . '/../../uploads',
+        'location' => __DIR__ . '/../../data/',
         'fileSize' => 70, // size in kilobytes
     ),
     'midiLibraryUrl' => 'http://www.storth.com/midi/',

@@ -102,11 +102,8 @@ class IndexController extends Controller
             $title = Session::get('title');
         }
 
-
-        $fileLocation = __DIR__ . '/../../uploads/' . $fileName;
-
         $builder = new \Kotta\Builder();
-        $imageResources = $builder->generateImages($fileLocation, 0);
+        $imageResources = $builder->generateImages($file, 0);
 
         $chunks = array();
         foreach ($imageResources as $imageResource) {

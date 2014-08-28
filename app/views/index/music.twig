@@ -9,7 +9,7 @@
             <h2 class="music-sheet">{{ title }}</h2>
 
             {% for chunk in chunks %}
-                <img src="data:image/png;base64,{{ chunk | raw }}" />
+                <img class="music-sheet" src="data:image/png;base64,{{ chunk | raw }}" />
             {% endfor %}
 
             <a href="{{ route('index') }}" class="button left">&laquo; Convert another MIDI</a>
