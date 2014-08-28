@@ -96,6 +96,7 @@ class IndexController extends Controller
 
     public function getMusicSheets($file, $track)
     {
+        $fileTmpName = $file;
         $file = ConversionService::getFilePath($file);
         if (!Session::has('title'))
         {
@@ -109,6 +110,8 @@ class IndexController extends Controller
 
         $data = array(
             'title' => $title,
+            'fileTmpName' => $fileTmpName,
+            'track' => $track,
         );
 
         return View::make('index.music', $data);
