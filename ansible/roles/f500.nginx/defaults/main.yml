@@ -19,7 +19,7 @@ nginx_http_params:
     postpone_output: 1460
     request_pool_size: "4k"
     send_timeout: "10m"
-    sendfile: "on"
+    sendfile: "off"
     server_names_hash_bucket_size: 64
     tcp_nodelay: "on"
     tcp_nopush: "on"
