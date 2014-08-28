@@ -1,17 +1,9 @@
 <?php
 
-use Kotta\ValueObjects\Track;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\MessageBag;
 use Kotta\Parser\Parser;
-
-use Tmont\Midi\Delta;
-use Tmont\Midi\Event\EndOfTrackEvent;
-use Tmont\Midi\Event\TrackNameEvent;
-use Tmont\Midi\Reporting\TextFormatter;
-use Tmont\Midi\Reporting\Printer;
-use Tmont\Midi\Reporting\HtmlFormatter;
-use Tmont\Midi\TrackHeader;
+use Tmont\Midi\Parsing\ParseException;
 
 class IndexController extends Controller
 {
@@ -38,27 +30,38 @@ class IndexController extends Controller
         $validator = Validator::make(array('midi_file' => $file), $rules, $errorMessages);
 
         if ($validator->passes()) {
+            $fileName = substr($file->getRealPath(), 5);
             $file->move(Config::get('app.uploader.location'));
-            // Todo: cooler processing stuff
 
-            return Redirect::to('/')->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
+            // Todo: cooler processing stuff
+            return Redirect::route('tracks', array($fileName))->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
         }
 
-        return Redirect::to('/')->withErrors($validator);
+        return Redirect::route('index')->withErrors($validator);
     }
 
-    public function splitTracks()
+    public function getTracks($file)
     {
-        $fileLocation = Config::get('app.uploader.location');
-
-        $file = $fileLocation . '/name.midi';
-        $file = __DIR__ . '/../../vendor/tmont/midiparser/sample/And_We_Die_Young.mid';
-
         //create a new file parser
         $parser = new Parser();
+        $fileLocation = Config::get('app.uploader.location');
+        $file = Config::get('app.uploader.location') . '/' . $file;
+
         $parser->load($file);
-        $midi = $parser->parseToMidiClass();
-        dd($midi->getTrackNames()); 
+
+        try {
+            $midi = $parser->parseToMidiClass();
+        }
+        catch (ParseException $e)
+        {
+            return Response::json(array('status' => 'failed'), 417);
+        }
+
+        return Response::json($midi->getTrackNames());
     }
 
+    public function getMusicSheets($file)
+    {
+        return View::make('index.music');
+    }
 }

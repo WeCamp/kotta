@@ -11,13 +11,34 @@
 |
 */
 
-Route::get('/', array(
+Route::get(
+    '/',
+    array(
+        'as'   => 'getIndex',
         'uses' => 'IndexController@getIndex'
-    ));
-Route::post('/', array(
-        'uses' => 'IndexController@postMidiFile'
-    ));
+    )
+);
 
-Route::get('/split-tracks', array(
-        'uses' => 'IndexController@splitTracks'
-    ));
+Route::post(
+    '/',
+    array(
+        'as'   => 'postMidiFile',
+        'uses' => 'IndexController@postMidiFile'
+    )
+);
+
+Route::get(
+    '/tracks/{file}',
+    array(
+        'as'   => 'tracks',
+        'uses' => 'IndexController@getTracks'
+    )
+);
+
+Route::get(
+    '/music/{file}',
+    array(
+        'as'   => 'music',
+        'uses' => 'IndexController@getMusicSheets'
+    )
+);
