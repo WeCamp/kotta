@@ -67,7 +67,6 @@ class Chunker {
         $currentSymbolSum = 0;
 
         foreach($bars as $bar) {
-
             $symbolsCount = count($bar->getSymbols());
             if($currentSymbolSum + $symbolsCount <= $maxSymbolsPerChunk) {
                 $currentSymbolSum += $symbolsCount;
