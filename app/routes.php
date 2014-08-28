@@ -14,7 +14,7 @@
 Route::get(
     '/',
     array(
-        'as'   => 'getIndex',
+        'as'   => 'index',
         'uses' => 'IndexController@getIndex'
     )
 );
@@ -35,10 +35,18 @@ Route::get(
     )
 );
 
+Route::post(
+    '/tracks/{file}',
+    array(
+        'as'   => 'postTracks',
+        'uses' => 'IndexController@postTracks'
+    )
+);
+
 Route::get(
     '/music/{file}',
     array(
-        'as'   => 'music',
+        'as'   => 'musicSheets',
         'uses' => 'IndexController@getMusicSheets'
     )
 );

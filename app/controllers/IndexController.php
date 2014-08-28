@@ -1,7 +1,5 @@
 <?php
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\MessageBag;
 use Kotta\Parser\Parser;
 use Tmont\Midi\Parsing\ParseException;
 
@@ -30,11 +28,11 @@ class IndexController extends Controller
         $validator = Validator::make(array('midi_file' => $file), $rules, $errorMessages);
 
         if ($validator->passes()) {
-            $fileName = substr($file->getRealPath(), 5);
+            $fileTmpName = substr($file->getRealPath(), 5);
+            Session::put('fileName', $file->getClientOriginalName());
             $file->move(Config::get('app.uploader.location'));
 
-            // Todo: cooler processing stuff
-            return Redirect::route('tracks', array($fileName))->with(array('success' => new MessageBag(array('success' => 'validation.uploader.success'))));
+            return Redirect::route('tracks', array($fileTmpName));
         }
 
         return Redirect::route('index')->withErrors($validator);
@@ -45,6 +43,7 @@ class IndexController extends Controller
         //create a new file parser
         $parser = new Parser();
         $fileLocation = Config::get('app.uploader.location');
+        $fileTmpName = $file;
         $file = Config::get('app.uploader.location') . '/' . $file;
 
         $parser->load($file);
@@ -54,10 +53,24 @@ class IndexController extends Controller
         }
         catch (ParseException $e)
         {
-            return Response::json(array('status' => 'failed'), 417);
+            File::delete($file);
+
+            return Redirect::route('index')->withErrors('validation.uploader.fileType');
         }
 
-        return Response::json($midi->getTrackNames());
+        $data = array(
+            'fileTmpName' => $fileTmpName,
+            'fileName' => Session::get('fileName', ''),
+            'tracks' => $midi->getTrackNames(),
+        );
+
+        return View::make('index.tracks', $data);
+    }
+
+    public function postTracks($file)
+    {
+        // Todo: cooler processing stuff
+        return Redirect::route('musicSheets', array($file));
     }
 
     public function getMusicSheets($file)
