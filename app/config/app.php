@@ -122,7 +122,7 @@ return array(
 
 //        'Barryvdh\Debugbar\ServiceProvider',
         'TwigBridge\ServiceProvider',
-        'Service\KottaServiceProvider'
+        'Service\KottaServiceProvider',
 
     ),
     /*
