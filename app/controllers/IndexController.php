@@ -1,7 +1,17 @@
 <?php
 
+use Kotta\ValueObjects\Track;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\MessageBag;
+use Kotta\Parser\Parser;
+
+use Tmont\Midi\Delta;
+use Tmont\Midi\Event\EndOfTrackEvent;
+use Tmont\Midi\Event\TrackNameEvent;
+use Tmont\Midi\Reporting\TextFormatter;
+use Tmont\Midi\Reporting\Printer;
+use Tmont\Midi\Reporting\HtmlFormatter;
+use Tmont\Midi\TrackHeader;
 
 class IndexController extends Controller
 {
@@ -35,6 +45,20 @@ class IndexController extends Controller
         }
 
         return Redirect::to('/')->withErrors($validator);
+    }
+
+    public function splitTracks()
+    {
+        $fileLocation = Config::get('app.uploader.location');
+
+        $file = $fileLocation . '/name.midi';
+        $file = __DIR__ . '/../../vendor/tmont/midiparser/sample/And_We_Die_Young.mid';
+
+        //create a new file parser
+        $parser = new Parser();
+        $parser->load($file);
+        $midi = $parser->parseToMidiClass();
+        dd($midi->getTrackNames()); 
     }
 
 }

@@ -17,3 +17,7 @@ Route::get('/', array(
 Route::post('/', array(
         'uses' => 'IndexController@postMidiFile'
     ));
+
+Route::get('/split-tracks', array(
+        'uses' => 'IndexController@splitTracks'
+    ));
