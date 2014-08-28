@@ -44,7 +44,7 @@ Route::post(
 );
 
 Route::get(
-    '/music/{file}',
+    '/music/{file}/{track}',
     array(
         'as'   => 'musicSheets',
         'uses' => 'IndexController@getMusicSheets'

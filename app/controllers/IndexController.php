@@ -80,13 +80,24 @@ class IndexController extends Controller
         }
         // Todo: cooler processing stuff
 
-        return Redirect::route('musicSheets', array($fileTmpName));
+        return Redirect::route('musicSheets', array($fileTmpName, Input::get('track')));
     }
 
-    public function getMusicSheets($file)
+    public function getMusicSheets($file, $track)
     {
+        $file = ConversionService::getFilePath($file);
+        if (!Session::has('title'))
+        {
+            $tracks = ConversionService::getTracks($file);
+            $title = $tracks[$track];
+        }
+        else
+        {
+            $title = Session::get('title');
+        }
+
         $data = array(
-            'title' => Session::get('title'),
+            'title' => $title,
         );
 
         return View::make('index.music', $data);
