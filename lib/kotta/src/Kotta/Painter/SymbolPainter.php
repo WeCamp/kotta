@@ -3,6 +3,7 @@
 namespace Kotta\Painter;
 
 use Kotta\Symbol\Converter;
+use Tmont\Midi\Util\Note;
 
 class SymbolPainter
 {
@@ -15,7 +16,7 @@ class SymbolPainter
     function paint($canvas, Symbol $symbol, $offset)
     {
         $imageToDraw = $symbol->getImageResource();
-        imagecopy($canvas, $imageToDraw, $offset, 20, 0, 0, imagesx($imageToDraw), imagesy($imageToDraw));
+        imagecopy($canvas, $imageToDraw, $offset, $symbol->getCenterPoint()['y'], 0, 0, imagesx($imageToDraw), imagesy($imageToDraw));
     }
 
 }

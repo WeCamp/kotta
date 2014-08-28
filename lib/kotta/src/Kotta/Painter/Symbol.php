@@ -58,4 +58,9 @@ class Symbol
             'y' => $this->centerPoint_y
         );
     }
+
+    public function modifyBy($y)
+    {
+        $this->centerPoint_y += $y;
+    }
 } 
