@@ -1,4 +1,6 @@
-<?php namespace Service;
+<?php
+
+namespace Service;
 
 use \Illuminate\Support\Facades\Facade;
 
