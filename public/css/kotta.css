@@ -74,7 +74,29 @@ a.print.button {
 .tabs dd.active a, .tabs .tab-title.active a {
     background: #e0e0e0;
 }
-
+.social-icons .link img {
+    width: 23px;
+    margin: 14px;
+}
+.social-icons .twitter {
+    margin-right: 20px;
+}
+.social-icons a {
+    padding: 0;
+}
+.social-icons a.mail {
+    padding: 8px 15px 8px 16px;
+    font-size: 29px;
+}
+.button-filler {
+    line-height: 51px;
+    display: block;
+    margin-right: 20px;
+    color: gray;
+}
+#shareLink {
+    padding: 70px 20px 0 20px;
+}
 
 @media print {
     .row > .content {

@@ -78,6 +78,9 @@ return [
         ],
         'Auth' => [
             'is_safe' => true
+        ],
+        'Config' => [
+            'is_safe' => true
         ]
     ],
 

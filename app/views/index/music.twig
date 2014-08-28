@@ -9,16 +9,46 @@
             <h2 class="music-sheet">{{ title }}</h2>
 
             <img class="music-sheet" src="/images/music_sheet.png" />
-
-            <a href="{{ route('index') }}" class="button right">Convert another MIDI</a>
+            <a href="{{ route('index') }}" class="button left">&laquo; Convert another MIDI</a>
             <a href="javascript:window.print();" class="print button right success">Print</a>
+            <div class="right button-filler"> or </div>
+            <div class="social-icons">
+                <a href="http://twitter.com/share?text=I%20just%20converted%20my%20Midi%20file%20to%20sheet%20music%20with%20" class="button right twitter" target='_blank'><img src="/icons/twitter.png" /></a>
+                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"></div>
+                <a href="http://www.facebook.com/share.php?u={{ Config.get('app.url') ~ "/music/" ~ fileTmpName ~ "/" ~ track | url_encode }}" onclick="return fbs_click()" target="_blank" class="button right facebook"><img src="/icons/facebook-square.png" /></a>
+                <a class="button right link"><img src="/icons/link.png"/></a>
+                <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com." title="Share by Email">
+                <a href="mailto:?subject={{ title }}&amp;body=Have a look at this midi file to music sheet conversion {{ Config.get('app.url') ~ "/music/" ~ fileTmpName ~ "/" ~ track }}" class="button right mail">&#9993;</a>
+                <div class="right button-filler">Share via </div>
+            </div>
+            <div class='row' id='shareLink'>
+                <div class='small-4 column'>
+                    Share this link with your friends: 
+                </div>
+                <div class='small-5 column'>
+                    {{ Form.text('link', Config.get('app.url') ~ "/music/" ~ fileTmpName ~ "/" ~ track) }}
+                </div>
+            </div>
         </section>
     </section>
 
+    <div id="fb-root"></div>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/foundation.min.js"></script>
     <script>
         $(document).foundation();
+
+        // Link share magic
+        $('#shareLink').hide();
+        $('.link').click(function(e) {
+            $('#shareLink').toggle();
+            e.preventDefault();
+        });
+
+        // FB share button :-(
+        function fbs_click()
+        {u=location.href;t=document.title;window.open
+        ('http://www.facebook.com/sharer.php?u='+ encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}
     </script>
     </body>
 {% endblock %}
