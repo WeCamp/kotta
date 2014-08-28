@@ -14,13 +14,17 @@
                 Downloading your sheet music is a simple process of providing the MIDI file for which you want sheet music,
                 select which track you want to export and then <em>Download</em> a PDF file with your sheet music.
             </p>
-            <h2>Provide a MIDI File</h2>
+            {% if fileName is not empty %}
+                <h2>Provide a MIDI File</h2>
+            {% endif %}
+            {% include 'includes.responseMsg' %}
             {{ Form.open({'route': ['postTracks', fileTmpName]}) }}
-                {% include 'includes.responseMsg' %}
-                <section class="midi-info">
-                    {{ fileName }}
-                    <a href="{{ route('index') }}" class="right">&cross;</a>
-                </section>
+                {% if fileName is not empty %}
+                    <section class="midi-info">
+                        {{ fileName }}
+                        <a href="{{ route('index') }}" class="right">&cross;</a>
+                    </section>
+                {% endif %}
                 <h2 id="select-track">Select your Track</h2>
                 {{ Form.select('track', tracks) }}
                 {{ Form.text('title', '', {'placeholder': 'Overwrite track name here'}) }}

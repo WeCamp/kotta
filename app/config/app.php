@@ -6,6 +6,7 @@ return array(
         'location' => __DIR__ . '/../../uploads',
         'fileSize' => 70, // size in kilobytes
     ),
+    'midiLibraryUrl' => 'http://www.storth.com/midi/',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +123,7 @@ return array(
 
 //        'Barryvdh\Debugbar\ServiceProvider',
         'TwigBridge\ServiceProvider',
-        'Service\KottaServiceProvider'
+        'Service\KottaServiceProvider',
 
     ),
     /*

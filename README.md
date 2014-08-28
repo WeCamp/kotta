@@ -29,6 +29,10 @@ Create the environment file by copying `app/config/environment.dist.php` to `app
 
 Run composer and boom.
 
+To set up the database for searching you need to go into your vagrant box (vagrant ssh), navigate to /vagrant/ and run:
+php artisan migrate
+php artisan db:seed
+
 Libraries
 =========
 

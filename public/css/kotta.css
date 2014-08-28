@@ -3,7 +3,10 @@ body {
     background-size: cover;
     color:      #333;
 }
-.content {
+p {
+    text-rendering: none;
+}
+.row > .content {
     margin-top:       40px;
     background-color: white;
     border:           2px solid #333;
@@ -11,11 +14,11 @@ body {
     border-radius:    10px;
     margin-bottom:    80px;
 }
-.content h1 {
+.row > .content h1 {
     margin-bottom: 40px;
     text-align: center;
 }
-.content h2 {
+.row >.content h2 {
     color: #666666;
     border-bottom: 1px solid #666666;
     margin-bottom: 20px;
@@ -23,17 +26,17 @@ body {
     text-align: center;
     font-size: 1.9rem;
 }
-.content h2.music-sheet {
+.row > .content h2.music-sheet {
     margin-bottom: 0;
 }
-.content form {
+.row > .content form {
     margin-bottom: 0;
 }
-.content form input[type=submit] {
+.row >.content form input[type=submit] {
     margin-bottom: 0;
     margin-top: 40px;
 }
-.content form input[type=text] {
+.row >.content form input[type=text] {
     margin-top: 20px;
 }
 .midi-info {
@@ -43,19 +46,25 @@ body {
 a.print.button {
     margin-right: 2em;
 }
+.searchresults {
+    width: 100%;
+}
+.searchresults a {
+    display: block;
+}
 
 @media print {
-    .content {
+    .row > .content {
         margin:           0;
         background-color: transparent;
         border:           none;
         padding:          0;
         border-radius:    0;
     }
-    .content > * {
+    .row > .content > * {
         display: none;
     }
-    .content .music-sheet {
+    .row > .content .music-sheet {
         display: block;
     }
 }
