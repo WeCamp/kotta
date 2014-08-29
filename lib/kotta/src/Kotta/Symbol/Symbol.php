@@ -22,6 +22,7 @@ interface Symbol
     const NOTE_1_32 = 'note_1_32';
 
     const PAUSE_1    = 'pause_1';
+    const PAUSE_1_2  = 'pause_1_4';
     const PAUSE_1_4  = 'pause_1_4';
     const PAUSE_1_8  = 'pause_1_8';
     const PAUSE_1_16 = 'pause_1_16';

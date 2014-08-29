@@ -59,7 +59,7 @@ class ConversionService
         }
         else
         {
-            $file = \Config::get('app.uploader.location') . '/' . $file;
+            $file = \Config::get('app.uploader.location') . 'uploads/' . $file;
         }
 
         return $file;

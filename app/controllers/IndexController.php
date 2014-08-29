@@ -39,7 +39,7 @@ class IndexController extends Controller
         if ($validator->passes()) {
             $fileTmpName = substr($file->getRealPath(), 5);
             Session::put('fileName', $file->getClientOriginalName());
-            $file->move(Config::get('app.uploader.location'));
+            $file->move(Config::get('app.uploader.location') . '/uploads');
 
             return Redirect::route('tracks', array($fileTmpName));
         }
