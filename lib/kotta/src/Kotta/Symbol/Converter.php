@@ -8,6 +8,7 @@ class Converter
 {
     const CLEF_WIDTH   = 45;
     const NOTE_WIDTH   = 35;
+    const NOTE_HEIGHT  = 35;
     const NOTE_PADDING = 5;
     const TIE_WIDTH    = 29;
 

@@ -47,9 +47,22 @@ class ChunkPainter
         foreach ($bar->getSymbols() as $symbol) {
             $offset += 35;
 
+            $note = $symbol->getName();
+            $modification = 0;
+
+            // FAKE IT TILL YOU MAKE IT!
+            switch ($note) {
+                case 'E4':
+                $modification = 14;
+                    break;
+            }
+
             $painterSymbol = $this->converter->toSymbol($symbol);
+            $painterSymbol->modifyBy($modification);
+
             $this->symbolPainter->paint($canvas, $painterSymbol, $offset);
         }
+
         $offset = $this->paintBarEnd($offset);
         return $offset;
     }
