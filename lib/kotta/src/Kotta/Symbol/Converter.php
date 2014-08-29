@@ -2,7 +2,7 @@
 
 namespace Kotta\Symbol;
 
-use Kotta\Painter\Symbol;
+use Kotta\Painter\Symbol as PainterSymbol;
 
 class Converter
 {
@@ -190,7 +190,7 @@ class Converter
         imagealphablending($imageResource, true);
         imagesavealpha($imageResource, true);
 
-        return new Symbol($symbolName, $symbol['image'], $imageResource, $symbol['centerPoint']);
+        return new PainterSymbol($symbolName, $symbol['image'], $imageResource, $symbol['centerPoint']);
     }
 
 }
